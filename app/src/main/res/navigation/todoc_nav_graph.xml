@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/todoc_nav_graph"
+    app:startDestination="@id/todocListFragment">
+
+
+    <fragment
+        android:id="@+id/todocListFragment"
+        android:name="com.example.todoc.tasks.TasksFragment"
+        android:label="TodocListFragment"
+        tools:layout="@layout/todoc_list_fragment"/>
+</navigation>
