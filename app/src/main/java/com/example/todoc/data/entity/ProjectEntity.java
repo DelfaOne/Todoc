@@ -10,13 +10,13 @@ import androidx.room.PrimaryKey;
 public class ProjectEntity {
 
     @PrimaryKey(autoGenerate = true)
-    private int id = 0;
+    public int id = 0;
 
     @NonNull
-    String projectName;
+    public String projectName;
 
     @ColorInt
-    int colorProject;
+    public int colorProject;
 
     public ProjectEntity(int id, @NonNull String projectName,@ColorInt int colorProject) {
         this.id = id;
