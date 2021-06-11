@@ -1,4 +1,4 @@
-package com.example.todoc.tasks;
+package com.example.todoc.task;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;

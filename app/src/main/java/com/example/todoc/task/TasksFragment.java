@@ -1,4 +1,4 @@
-package com.example.todoc.tasks;
+package com.example.todoc.task;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.todoc.R;
 import com.example.todoc.ViewModelFactory;
 import com.example.todoc.databinding.TodocListFragmentBinding;
 
@@ -31,11 +33,8 @@ public class TasksFragment extends Fragment {
 
     private void init() {
 
-        vb.fabAddTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vm.onCLicked();
-            }
+        vb.fabAddTask.setOnClickListener(v -> {
+            NavHostFragment.findNavController(this).navigate(R.id.action_todocListFragment_to_addTaskFragment);
         });
     }
 }

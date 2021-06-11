@@ -8,7 +8,16 @@
 
     <fragment
         android:id="@+id/todocListFragment"
-        android:name="com.example.todoc.tasks.TasksFragment"
+        android:name="com.example.todoc.task.TasksFragment"
         android:label="TodocListFragment"
-        tools:layout="@layout/todoc_list_fragment"/>
+        tools:layout="@layout/todoc_list_fragment">
+        <action
+            android:id="@+id/action_todocListFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/addTaskFragment"
+        android:name="com.example.todoc.addtask.AddTaskFragment"
+        android:label="AddTaskFragment"
+        tools:layout="@layout/add_task_fragment"/>
 </navigation>

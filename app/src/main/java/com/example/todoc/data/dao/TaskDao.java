@@ -1,7 +1,8 @@
-package com.example.todoc.data;
+package com.example.todoc.data.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -12,12 +13,22 @@ import java.util.List;
 
 //Contient les requêtes SQL
 @Dao
-public interface ProjectDao {
+public interface TaskDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void upsert(TasksEntity tasksEntity);
-    @Query("SELECT * FROM Tasks")
+
+    @Delete
+    int delete(TasksEntity tasksEntity);
+
+    @Query("SELECT * FROM tasks_table")
     LiveData<List<TasksEntity>> getAll();
+
+    @Query("DELETE FROM tasks_table")
+    void deleteAllTasks();
+
+    /*@Query("SELECT * FROM tasks_table WHERE taskName = :taskName")
+    LiveData<List<TasksEntity>>getTasksByName(String taskName);*/
 
 
 }
