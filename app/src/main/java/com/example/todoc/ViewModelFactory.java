@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
+import androidx.room.RoomDatabase;
+
 import com.example.todoc.data.database.AppDatabase;
 import com.example.todoc.repository.TaskRepository;
 import com.example.todoc.task.TasksViewModel;
@@ -14,13 +16,10 @@ import java.util.concurrent.Executors;
 public class ViewModelFactory implements ViewModelProvider.Factory {
 
     private static ViewModelFactory factory;
-    private final AppDatabase appDatabase;
     private final ExecutorService executorService;
     private final TaskRepository taskRepository;
 
     public ViewModelFactory(AppDatabase appDatabase, ExecutorService executorService, TaskRepository taskRepository) {
-        this.appDatabase = appDatabase;
-
         this.executorService = executorService;
         this.taskRepository = taskRepository;
     }
@@ -30,10 +29,18 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         if (factory == null) {
             synchronized (ViewModelFactory.class) {
                 if (factory == null) {
+
+                    RoomDatabase.Builder<AppDatabase> builder = Room.databaseBuilder(MainApplication.getApplication(), AppDatabase.class, "app_database");
+                    if (BuildConfig.DEBUG) {
+                        builder.fallbackToDestructiveMigration();
+                    }
+
+                    AppDatabase database = builder.build();
                     factory = new ViewModelFactory(
-                            Room.databaseBuilder(MainApplication.getApplication(), AppDatabase.class, "app_database").fallbackToDestructiveMigration().build(),
-                            Executors.newFixedThreadPool(4),
-                            new TaskRepository());
+                        database,
+                        Executors.newFixedThreadPool(4),
+                        new TaskRepository(database.getTaskDao(), database.getProjectDao())
+                    );
                 }
             }
         }

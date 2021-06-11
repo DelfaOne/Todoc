@@ -12,7 +12,6 @@ public class TasksEntity {
     @PrimaryKey(autoGenerate = true)
     public int id = 0;
 
-    @ForeignKey(entity = ProjectEntity.class, parentColumns = "id", childColumns = "id")
     public int projectId;
 
     public String taskName;
