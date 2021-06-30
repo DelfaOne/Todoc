@@ -11,6 +11,8 @@ import androidx.room.Transaction;
 import com.example.todoc.data.entity.ProjectEntity;
 import com.example.todoc.data.entity.ProjectWithTasks;
 
+import java.util.List;
+
 @Dao
 public interface ProjectDao {
 
@@ -21,7 +23,7 @@ public interface ProjectDao {
     void deleteAll();
 
     @Query("Select * FROM project_table")
-    LiveData<ProjectEntity> getAllProjects();
+    LiveData<List<ProjectEntity>> getAllProjects();
 
     @Transaction
     @Query("SELECT * FROM project_table WHERE id == :projectId")
