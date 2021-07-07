@@ -10,22 +10,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todoc.databinding.ItemTaskBinding;
 
-public class TaskAdapter extends ListAdapter<TaskUiModel, TaskAdapter.ViewHolder> {
+public class TaskAdapter extends ListAdapter<TaskViewStateItem, TaskAdapter.ViewHolder> {
+
+    ViewHolder.OnDeleteItem onDeleteItem;
 
 
-    public TaskAdapter() {
-        super(new DiffUtil.ItemCallback<TaskUiModel>() {
+    public TaskAdapter(ViewHolder.OnDeleteItem onDeleteItem) {
+        super(new DiffUtil.ItemCallback<TaskViewStateItem>() {
             @Override
-            public boolean areItemsTheSame(@NonNull TaskUiModel oldItem, @NonNull TaskUiModel newItem) {
+            public boolean areItemsTheSame(@NonNull TaskViewStateItem oldItem, @NonNull TaskViewStateItem newItem) {
                 return oldItem.getId() == newItem.getId();
             }
 
             @Override
-            public boolean areContentsTheSame(@NonNull TaskUiModel oldItem, @NonNull TaskUiModel newItem) {
+            public boolean areContentsTheSame(@NonNull TaskViewStateItem oldItem, @NonNull TaskViewStateItem newItem) {
                 return oldItem.getTaskName().equalsIgnoreCase(newItem.getProjectName());
                 //TODO
             }
         });
+
+        this.onDeleteItem = onDeleteItem;
     }
 
     @NonNull
@@ -39,7 +43,7 @@ public class TaskAdapter extends ListAdapter<TaskUiModel, TaskAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(getItem(position));
+        holder.bind(getItem(position), onDeleteItem);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -51,10 +55,17 @@ public class TaskAdapter extends ListAdapter<TaskUiModel, TaskAdapter.ViewHolder
         }
 
 
-        public void bind(TaskUiModel item) {
+        public void bind(TaskViewStateItem item, OnDeleteItem onDeleteItem) {
             vb.titleTask.setText(item.getTaskName());
             vb.projectName.setText(item.getProjectName());
-            vb.colorProject.setBackgroundColor(item.getColorProject());
+            vb.projectColor.setBackgroundColor(item.getColorProject());
+            vb.deleteButton.setOnClickListener(v -> {
+                onDeleteItem.deleteItem(item.getId());
+            });
+        }
+
+        public interface OnDeleteItem {
+            void deleteItem(long taskId);
         }
     }
 }

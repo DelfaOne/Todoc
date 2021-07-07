@@ -10,16 +10,15 @@ import androidx.room.PrimaryKey;
 public class TasksEntity {
 
     @PrimaryKey(autoGenerate = true)
-    public int id = 0;
+    public long id = 0;
 
-    public int projectId;
+    public long projectId;
 
     public String taskName;
 
-
     public String taskCreatedAt;
 
-    public TasksEntity(int id, int projectId, String taskName, String taskCreatedAt) {
+    public TasksEntity(long id, long projectId, String taskName, String taskCreatedAt) {
         this.id = id;
         this.projectId = projectId;
         this.taskName = taskName;

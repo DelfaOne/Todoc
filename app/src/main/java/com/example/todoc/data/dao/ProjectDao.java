@@ -27,5 +27,5 @@ public interface ProjectDao {
 
     @Transaction
     @Query("SELECT * FROM project_table WHERE id == :projectId")
-    LiveData<ProjectWithTasks> getProjectWithTasksForId(int projectId);
+    LiveData<ProjectWithTasks> getProjectWithTasksForId(long projectId);
 }

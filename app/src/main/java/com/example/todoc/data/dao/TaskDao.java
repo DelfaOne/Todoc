@@ -18,14 +18,14 @@ public interface TaskDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void upsert(TasksEntity tasksEntity);
 
-    @Delete
-    int delete(TasksEntity tasksEntity);
-
     @Query("SELECT * FROM tasks_table")
     LiveData<List<TasksEntity>> getAll();
 
     @Query("DELETE FROM tasks_table")
     void deleteAllTasks();
+
+    @Query("DELETE FROM tasks_table WHERE id=:taskId")
+    void deleteTaskById(long taskId);
 
     /*@Query("SELECT * FROM tasks_table WHERE taskName = :taskName")
     LiveData<List<TasksEntity>>getTasksByName(String taskName);*/

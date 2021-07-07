@@ -32,8 +32,8 @@ public class TaskRepository {
         return projectEntityList;
     }
 
-    public void deleteTask(TasksEntity tasksEntity) {
-        taskDao.delete(tasksEntity);
+    public void deleteTask(long taskId) {
+        taskDao.deleteTaskById(taskId);
     }
 
     public void createTask(TasksEntity tasksEntity) {

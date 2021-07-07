@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/color_task"
+            android:id="@+id/project_color"
             android:layout_width="45dp"
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,8 +27,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:layout_marginTop="6dp"
-            app:layout_constraintEnd_toStartOf="@+id/meeting_delete_btn"
-            app:layout_constraintStart_toEndOf="@id/color_task"
+            app:layout_constraintStart_toEndOf="@id/project_color"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Réunion A - 14h00 - Peach" />
 
@@ -42,7 +41,7 @@
             app:layout_constraintTop_toBottomOf="@id/title_task"/>
 
         <ImageButton
-            android:id="@+id/color_project"
+            android:id="@+id/delete_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:backgroundTint="@color/white"

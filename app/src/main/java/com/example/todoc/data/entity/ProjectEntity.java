@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
 public class ProjectEntity {
 
     @PrimaryKey(autoGenerate = true)
-    public int id = 0;
+    public long id = 0;
 
     @NonNull
     public String projectName;
@@ -25,7 +25,7 @@ public class ProjectEntity {
         this.colorProject = colorProject;
     }
 
-    public ProjectEntity(int id, @NonNull String projectName,@ColorInt int colorProject) {
+    public ProjectEntity(long id, @NonNull String projectName,@ColorInt int colorProject) {
         this.id = id;
         this.projectName = projectName;
         this.colorProject = colorProject;

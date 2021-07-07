@@ -1,8 +1,10 @@
 package com.example.todoc.data.database;
 
 import android.app.Application;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -17,6 +19,7 @@ import com.example.todoc.data.dao.TaskDao;
 import com.example.todoc.data.entity.ProjectEntity;
 import com.example.todoc.data.entity.TasksEntity;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.Executor;
 
 @Database(
@@ -58,29 +61,87 @@ public abstract class AppDatabase extends RoomDatabase {
         );
 
         builder.addCallback(new Callback() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onCreate(@NonNull SupportSQLiteDatabase db) {
                 ioExecutor.execute(() -> {
                     ProjectDao projectDao = AppDatabase.getInstance(application, ioExecutor).getProjectDao();
+                    TaskDao taskDao = AppDatabase.getInstance(application, ioExecutor).getTaskDao();
 
+                    //Populate project
                     projectDao.upsert(
                             new ProjectEntity(
-                                    "Projet 2",
-                                    ResourcesCompat.getColor(application.getResources(), R.color.color_project, null)
+                                    "Project 1",
+                                    ResourcesCompat.getColor(application.getResources(), R.color.first_project, null)
                             )
                     );
                     projectDao.upsert(
                             new ProjectEntity(
-                                    "Projet 3",
-                                    ResourcesCompat.getColor(application.getResources(), R.color.color_project, null)
+                                    "Project 2",
+                                    ResourcesCompat.getColor(application.getResources(), R.color.second_project, null)
                             )
                     );
                     projectDao.upsert(
                             new ProjectEntity(
-                                    "Projet 4",
-                                    ResourcesCompat.getColor(application.getResources(), R.color.color_project, null)
+                                    "Project 3",
+                                    ResourcesCompat.getColor(application.getResources(), R.color.third_project, null)
                             )
                     );
+                    projectDao.upsert(
+                            new ProjectEntity(
+                                    "Project 4",
+                                    ResourcesCompat.getColor(application.getResources(), R.color.fourth_project, null)
+                            )
+                    );
+                    projectDao.upsert(
+                            new ProjectEntity(
+                                    "Project 5",
+                                    ResourcesCompat.getColor(application.getResources(), R.color.fifth_project, null)
+                            )
+                    );
+
+                    //Populate Task
+                    taskDao.upsert(
+                            new TasksEntity(
+                                    1,
+                                    1,
+                                    "Task 1",
+                                    LocalDateTime.now().plusDays(1).toString()
+                                    )
+                    );
+                    taskDao.upsert(
+                            new TasksEntity(
+                                    2,
+                                    2,
+                                    "Task 2",
+                                    LocalDateTime.now().plusDays(2).toString()
+                            )
+                    );
+                    taskDao.upsert(
+                            new TasksEntity(
+                                    3,
+                                    3,
+                                    "Task 3",
+                                    LocalDateTime.now().plusDays(3).toString()
+                            )
+                    );
+                    taskDao.upsert(
+                            new TasksEntity(
+                                    4,
+                                    4,
+                                    "Task 4",
+                                    LocalDateTime.now().plusDays(4).toString()
+                            )
+                    );
+                    taskDao.upsert(
+                            new TasksEntity(
+                                    5,
+                                    5,
+                                    "Task 5",
+                                    LocalDateTime.now().plusDays(5).toString()
+                            )
+                    );
+
                 });
             }
         });

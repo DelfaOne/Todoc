@@ -30,29 +30,36 @@ public class TasksFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         vb = TodocListFragmentBinding.inflate(inflater, container, false);
         vm = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(TasksViewModel.class);
-        init();
+        setupView();
         View view = vb.getRoot();
         setHasOptionsMenu(true);
         setupAdapter();
+        setupObservers();
         return view;
     }
 
-    private void init() {
+    private void setupView() {
 
         vb.fabAddTask.setOnClickListener(v -> {
             NavHostFragment.findNavController(this).navigate(R.id.action_todocListFragment_to_addTaskFragment);
-            vm.onCLicked();
         });
+
+
     }
 
     private void setupAdapter() {
         vb.taskRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        taskAdapter = new TaskAdapter();
+        taskAdapter = new TaskAdapter(taskId -> vm.deleteTask(taskId));
         vb.taskRecyclerView.setAdapter(taskAdapter);
-        vm.taskUiModelLiveData.observe(getViewLifecycleOwner(), new Observer<List<TaskUiModel>>() {
-            @Override
-            public void onChanged(List<TaskUiModel> taskUiModels) {
-                taskAdapter.submitList(taskUiModels);
+    }
+
+    private void setupObservers() {
+        vm.taskViewStateLiveData.observe(getViewLifecycleOwner(), taskViewState -> {
+            taskAdapter.submitList(taskViewState.getViewStateItemList());
+            if (taskViewState.isEmptyStateVisible()) {
+                vb.lblNoTask.setVisibility(View.VISIBLE);
+            } else {
+                vb.lblNoTask.setVisibility(View.INVISIBLE);
             }
         });
     }
