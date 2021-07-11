@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.viewbinding.BuildConfig;
 
+import com.example.todoc.addtask.AddTaskViewModel;
 import com.example.todoc.data.database.AppDatabase;
 import com.example.todoc.data.entity.TasksEntity;
 import com.example.todoc.repository.TaskRepository;
@@ -50,6 +51,9 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     public <T extends ViewModel> T create(Class<T> modelClass) {
         if (modelClass.isAssignableFrom(TasksViewModel.class)) {
             return (T) new TasksViewModel(taskRepository, executorService);
+        }
+        if (modelClass.isAssignableFrom(AddTaskViewModel.class)) {
+            return (T) new AddTaskViewModel(taskRepository, MainApplication.getApplication());
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

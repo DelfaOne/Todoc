@@ -25,7 +25,7 @@
             app:startIconDrawable="@drawable/ic_outline_task_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/subject_edit"
+                android:id="@+id/task_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="10"
@@ -45,7 +45,7 @@
             app:startIconDrawable="@drawable/ic_outline_folder_24">
 
         <AutoCompleteTextView
-            android:id="@+id/location_menu"
+            android:id="@+id/project_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"

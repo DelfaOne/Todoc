@@ -71,32 +71,20 @@ public abstract class AppDatabase extends RoomDatabase {
                     //Populate project
                     projectDao.upsert(
                             new ProjectEntity(
-                                    "Project 1",
+                                    "Projet Tartampion",
                                     ResourcesCompat.getColor(application.getResources(), R.color.first_project, null)
                             )
                     );
                     projectDao.upsert(
                             new ProjectEntity(
-                                    "Project 2",
+                                    "“Projet Lucidia",
                                     ResourcesCompat.getColor(application.getResources(), R.color.second_project, null)
                             )
                     );
                     projectDao.upsert(
                             new ProjectEntity(
-                                    "Project 3",
+                                    "Projet Circus",
                                     ResourcesCompat.getColor(application.getResources(), R.color.third_project, null)
-                            )
-                    );
-                    projectDao.upsert(
-                            new ProjectEntity(
-                                    "Project 4",
-                                    ResourcesCompat.getColor(application.getResources(), R.color.fourth_project, null)
-                            )
-                    );
-                    projectDao.upsert(
-                            new ProjectEntity(
-                                    "Project 5",
-                                    ResourcesCompat.getColor(application.getResources(), R.color.fifth_project, null)
                             )
                     );
 
@@ -127,7 +115,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     );
                     taskDao.upsert(
                             new TasksEntity(
-                                    4,
+                                    2,
                                     4,
                                     "Task 4",
                                     LocalDateTime.now().plusDays(4).toString()
@@ -135,7 +123,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     );
                     taskDao.upsert(
                             new TasksEntity(
-                                    5,
+                                    3,
                                     5,
                                     "Task 5",
                                     LocalDateTime.now().plusDays(5).toString()

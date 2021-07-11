@@ -20,7 +20,7 @@ public class TaskRepository {
     public TaskRepository(TaskDao taskDao, ProjectDao projectDao) {
         this.taskDao = taskDao;
         this.projectDao = projectDao;
-        tasksEntityList = taskDao.getAll();
+        tasksEntityList = taskDao.getAllTasks();
         projectEntityList = projectDao.getAllProjects();
     }
 

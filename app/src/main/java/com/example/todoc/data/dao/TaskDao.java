@@ -19,7 +19,7 @@ public interface TaskDao {
     void upsert(TasksEntity tasksEntity);
 
     @Query("SELECT * FROM tasks_table")
-    LiveData<List<TasksEntity>> getAll();
+    LiveData<List<TasksEntity>> getAllTasks();
 
     @Query("DELETE FROM tasks_table")
     void deleteAllTasks();

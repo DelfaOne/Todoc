@@ -10,16 +10,24 @@ import androidx.room.PrimaryKey;
 public class TasksEntity {
 
     @PrimaryKey(autoGenerate = true)
-    public long id = 0;
+    public final long id;
 
-    public long projectId;
+    public final long projectId;
 
-    public String taskName;
+    public final String taskName;
 
-    public String taskCreatedAt;
+    public final String taskCreatedAt;
 
+    @Deprecated //Only for ROOM Database
     public TasksEntity(long id, long projectId, String taskName, String taskCreatedAt) {
         this.id = id;
+        this.projectId = projectId;
+        this.taskName = taskName;
+        this.taskCreatedAt = taskCreatedAt;
+    }
+
+    public TasksEntity(long projectId, String taskName, String taskCreatedAt) {
+        this.id = 0;
         this.projectId = projectId;
         this.taskName = taskName;
         this.taskCreatedAt = taskCreatedAt;
