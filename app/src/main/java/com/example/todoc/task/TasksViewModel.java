@@ -44,7 +44,7 @@ public class TasksViewModel extends ViewModel {
 
         for (TasksEntity tasksEntity : tasksEntities) {
             for (ProjectEntity projectEntity : projectEntities) {
-                if (tasksEntity.projectId == projectEntity.id) {
+                if (tasksEntity.getProjectId() == projectEntity.getId()) {
                     results.add(map(tasksEntity, projectEntity));
                 }
             }
@@ -58,10 +58,10 @@ public class TasksViewModel extends ViewModel {
 
     private TaskViewStateItem map(TasksEntity tasksEntity, ProjectEntity projectEntity) {
         return new TaskViewStateItem(
-                tasksEntity.id,
-                tasksEntity.taskName,
-                projectEntity.projectName,
-                projectEntity.colorProject
+                tasksEntity.getId(),
+                tasksEntity.getTaskName(),
+                projectEntity.getProjectName(),
+                projectEntity.getColorProject()
                 );
     }
 

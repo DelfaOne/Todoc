@@ -8,12 +8,24 @@ import java.util.List;
 public class ProjectWithTasks {
 
     @Embedded
-    public ProjectEntity project;
+    private final ProjectEntity project;
 
     @Relation(
         parentColumn = "id",
         entityColumn = "id"
     )
-    public List<TasksEntity> tasks;
+    private final List<TasksEntity> tasks;
 
+    public ProjectWithTasks(ProjectEntity project, List<TasksEntity> tasks) {
+        this.project = project;
+        this.tasks = tasks;
+    }
+
+    public ProjectEntity getProject() {
+        return project;
+    }
+
+    public List<TasksEntity> getTasks() {
+        return tasks;
+    }
 }

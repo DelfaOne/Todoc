@@ -1,7 +1,7 @@
 package com.example.todoc.data.entity;
 
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 //Represent table in SQLite database
@@ -10,15 +10,14 @@ import androidx.room.PrimaryKey;
 public class TasksEntity {
 
     @PrimaryKey(autoGenerate = true)
-    public final long id;
+    private final long id;
 
-    public final long projectId;
+    private final long projectId;
 
-    public final String taskName;
+    private final String taskName;
 
-    public final String taskCreatedAt;
+    private final String taskCreatedAt;
 
-    @Deprecated //Only for ROOM Database
     public TasksEntity(long id, long projectId, String taskName, String taskCreatedAt) {
         this.id = id;
         this.projectId = projectId;
@@ -26,10 +25,27 @@ public class TasksEntity {
         this.taskCreatedAt = taskCreatedAt;
     }
 
+    @Ignore
     public TasksEntity(long projectId, String taskName, String taskCreatedAt) {
         this.id = 0;
         this.projectId = projectId;
         this.taskName = taskName;
         this.taskCreatedAt = taskCreatedAt;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public long getProjectId() {
+        return projectId;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public String getTaskCreatedAt() {
+        return taskCreatedAt;
     }
 }

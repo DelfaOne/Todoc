@@ -22,4 +22,8 @@
     <!--Add task error messages-->
     <string name="taskError">Please add a project name</string>
     <string name="projectError">Please add a project name</string>
+
+    <!--Menu text-->
+    <string name="filterByName">Filtrer par nom</string>
+    <string name="filterByDate">Filtrer par date</string>
 </resources>

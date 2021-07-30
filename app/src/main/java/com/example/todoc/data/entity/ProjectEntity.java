@@ -11,16 +11,17 @@ import androidx.room.PrimaryKey;
 public class ProjectEntity {
 
     @PrimaryKey(autoGenerate = true)
-    public long id = 0;
+    private final long id;
 
     @NonNull
-    public String projectName;
+    private final String projectName;
 
     @ColorInt
-    public int colorProject;
+    private final int colorProject;
 
     @Ignore
     public ProjectEntity(@NonNull String projectName,@ColorInt int colorProject) {
+        this.id = 0;
         this.projectName = projectName;
         this.colorProject = colorProject;
     }
@@ -31,5 +32,16 @@ public class ProjectEntity {
         this.colorProject = colorProject;
     }
 
+    public long getId() {
+        return id;
+    }
 
+    @NonNull
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public int getColorProject() {
+        return colorProject;
+    }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 public interface ProjectDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void upsert(ProjectEntity projectEntity);
+    long upsert(ProjectEntity projectEntity);
 
     @Query("DELETE FROM project_table")
     void deleteAll();

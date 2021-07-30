@@ -19,5 +19,9 @@
         android:id="@+id/addTaskFragment"
         android:name="com.example.todoc.addtask.AddTaskFragment"
         android:label="AddTaskFragment"
-        tools:layout="@layout/add_task_fragment"/>
+        tools:layout="@layout/add_task_fragment">
+        <action
+            android:id="@+id/addTaskToListFragment"
+            app:destination="@id/todocListFragment" />
+    </dialog>
 </navigation>

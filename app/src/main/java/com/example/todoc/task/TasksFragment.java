@@ -2,6 +2,9 @@ package com.example.todoc.task;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.todoc.R;
 import com.example.todoc.ViewModelFactory;
 import com.example.todoc.databinding.TodocListFragmentBinding;
+import com.example.todoc.taskselector.TaskSelectorDialogFragment;
 
 import java.util.List;
 
@@ -36,6 +40,36 @@ public class TasksFragment extends Fragment {
         setupAdapter();
         setupObservers();
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.filter_selector_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.filterByName : {
+                onNameFilterSelected();
+                break;
+            }
+            case R.id.filterByDate : {
+                onDateFilterSelected();
+                break;
+            }
+            default: return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+
+    private void onNameFilterSelected() {
+        new TaskSelectorDialogFragment().show(getActivity().getSupportFragmentManager(), null);
+    }
+
+    private void onDateFilterSelected() {
+
     }
 
     private void setupView() {

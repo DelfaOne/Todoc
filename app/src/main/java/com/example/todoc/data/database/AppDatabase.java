@@ -27,7 +27,7 @@ import java.util.concurrent.Executor;
                 TasksEntity.class,
                 ProjectEntity.class
         },
-        version = 1,
+        version = 2,
         exportSchema = false
 )
 public abstract class AppDatabase extends RoomDatabase {
@@ -69,62 +69,57 @@ public abstract class AppDatabase extends RoomDatabase {
                     TaskDao taskDao = AppDatabase.getInstance(application, ioExecutor).getTaskDao();
 
                     //Populate project
-                    projectDao.upsert(
+                    Long projectId1 =projectDao.upsert(
                             new ProjectEntity(
                                     "Projet Tartampion",
                                     ResourcesCompat.getColor(application.getResources(), R.color.first_project, null)
                             )
                     );
-                    projectDao.upsert(
+                    Long projectId2 =projectDao.upsert(
                             new ProjectEntity(
-                                    "“Projet Lucidia",
+                                    "Projet Lucidia",
                                     ResourcesCompat.getColor(application.getResources(), R.color.second_project, null)
                             )
                     );
-                    projectDao.upsert(
-                            new ProjectEntity(
-                                    "Projet Circus",
-                                    ResourcesCompat.getColor(application.getResources(), R.color.third_project, null)
-                            )
-                    );
+                    Long projectId3 = projectDao.upsert(
+                                    new ProjectEntity(
+                                            "Projet Circus",
+                                            ResourcesCompat.getColor(application.getResources(), R.color.third_project, null)
+                                    )
+                            );
 
                     //Populate Task
                     taskDao.upsert(
                             new TasksEntity(
-                                    1,
-                                    1,
+                                    projectId1,
                                     "Task 1",
                                     LocalDateTime.now().plusDays(1).toString()
-                                    )
+                            )
                     );
                     taskDao.upsert(
                             new TasksEntity(
-                                    2,
-                                    2,
+                                    projectId2,
                                     "Task 2",
                                     LocalDateTime.now().plusDays(2).toString()
                             )
                     );
                     taskDao.upsert(
                             new TasksEntity(
-                                    3,
-                                    3,
+                                    projectId3,
                                     "Task 3",
                                     LocalDateTime.now().plusDays(3).toString()
                             )
                     );
                     taskDao.upsert(
                             new TasksEntity(
-                                    2,
-                                    4,
+                                    projectId3,
                                     "Task 4",
                                     LocalDateTime.now().plusDays(4).toString()
                             )
                     );
                     taskDao.upsert(
                             new TasksEntity(
-                                    3,
-                                    5,
+                                    projectId2,
                                     "Task 5",
                                     LocalDateTime.now().plusDays(5).toString()
                             )
