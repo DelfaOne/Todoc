@@ -7,6 +7,7 @@ import com.example.todoc.data.dao.ProjectDao;
 import com.example.todoc.data.dao.TaskDao;
 import com.example.todoc.data.entity.ProjectEntity;
 import com.example.todoc.data.entity.TasksEntity;
+import com.example.todoc.repository.SelectedProjectsIdRepository;
 import com.example.todoc.repository.TaskRepository;
 import com.example.todoc.utils.TestExecutor;
 
@@ -33,11 +34,15 @@ public class TasksViewModelTest extends TestCase {
     @Mock
     TaskRepository taskRepository;
 
+    @Mock
+    SelectedProjectsIdRepository selectedProjectsIdRepository;
+
     private final Executor executor = new TestExecutor();
     private TasksViewModel tasksViewModel;
 
     private final MutableLiveData<List<TasksEntity>> taskLiveData = new MutableLiveData<>();
     private final MutableLiveData<List<ProjectEntity>> projectLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<Long>> selectedProjectsLiveData = new MutableLiveData<>();
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -49,8 +54,9 @@ public class TasksViewModelTest extends TestCase {
 
         Mockito.doReturn(taskLiveData).when(taskRepository).getAllTasks();
         Mockito.doReturn(projectLiveData).when(taskRepository).getAllProjects();
+        Mockito.doReturn(selectedProjectsLiveData).when(selectedProjectsIdRepository).getIdProjectListLiveData();
 
-        tasksViewModel = new TasksViewModel(taskRepository, executor);
+        tasksViewModel = new TasksViewModel(taskRepository, selectedProjectsIdRepository, executor);
 
         Mockito.verify(taskRepository).getAllTasks();
         Mockito.verify(taskRepository).getAllProjects();

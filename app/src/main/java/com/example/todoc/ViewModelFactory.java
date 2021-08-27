@@ -11,6 +11,7 @@ import com.example.todoc.repository.TaskRepository;
 import com.example.todoc.task.TasksViewModel;
 import com.example.todoc.taskselector.TaskSelectorViewModel;
 
+import java.time.Clock;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -20,11 +21,13 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     private final Executor executorService;
     private final TaskRepository taskRepository;
     private final SelectedProjectsIdRepository selectedProjectsIdRepository;
+    private final Clock clock;
 
-    public ViewModelFactory(Executor executorService, TaskRepository taskRepository, SelectedProjectsIdRepository selectedProjectsIdRepository) {
+    public ViewModelFactory(Executor executorService, TaskRepository taskRepository, SelectedProjectsIdRepository selectedProjectsIdRepository, Clock clock) {
         this.executorService = executorService;
         this.taskRepository = taskRepository;
         this.selectedProjectsIdRepository = selectedProjectsIdRepository;
+        this.clock = clock;
     }
 
 
@@ -34,7 +37,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
                 if (factory == null) {
                     Executor executor = Executors.newFixedThreadPool(4);
                     AppDatabase appDatabase = AppDatabase.getInstance(MainApplication.getApplication(), executor);
-                    factory = new ViewModelFactory(executor, new TaskRepository(appDatabase.getTaskDao(), appDatabase.getProjectDao()), new SelectedProjectsIdRepository());
+                    factory = new ViewModelFactory(executor, new TaskRepository(appDatabase.getTaskDao(), appDatabase.getProjectDao()), new SelectedProjectsIdRepository(), Clock.systemDefaultZone());
                 }
             }
         }
@@ -46,10 +49,10 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
         if (modelClass.isAssignableFrom(TasksViewModel.class)) {
-            return (T) new TasksViewModel(taskRepository, executorService);
+            return (T) new TasksViewModel(taskRepository, selectedProjectsIdRepository, executorService);
         }
         if (modelClass.isAssignableFrom(AddTaskViewModel.class)) {
-            return (T) new AddTaskViewModel(taskRepository, MainApplication.getApplication(), executorService);
+            return (T) new AddTaskViewModel(taskRepository, MainApplication.getApplication(), executorService, clock);
         }
         if (modelClass.isAssignableFrom(TaskSelectorViewModel.class)) {
             return (T) new TaskSelectorViewModel(taskRepository, selectedProjectsIdRepository, executorService);

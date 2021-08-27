@@ -22,6 +22,7 @@ public class AddTaskViewModel extends ViewModel {
     private final TaskRepository taskRepository;
     private final Application application;
     private final Executor executorService;
+    private final Clock clock;
 
     private final MutableLiveData<AddTaskViewState> _viewStateLiveData = new MutableLiveData<>();
     public final LiveData<AddTaskViewState> viewStateLiveData = _viewStateLiveData;
@@ -32,10 +33,11 @@ public class AddTaskViewModel extends ViewModel {
     @Nullable
     private Long projectId;
 
-    public AddTaskViewModel(TaskRepository taskRepository, Application application, Executor executorService) {
+    public AddTaskViewModel(TaskRepository taskRepository, Application application, Executor executorService, Clock clock) {
         this.taskRepository = taskRepository;
         this.application = application;
         this.executorService = executorService;
+        this.clock = clock;
     }
 
     public LiveData<List<ProjectEntity>> getProjectEntitiesLiveData() {
@@ -58,7 +60,7 @@ public class AddTaskViewModel extends ViewModel {
                     new TasksEntity(
                             projectId,
                             taskName,
-                            LocalDateTime.now(Clock.systemDefaultZone()).toString()
+                            LocalDateTime.now(clock)
                     )
             ));
         }

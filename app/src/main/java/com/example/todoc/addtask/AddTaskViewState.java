@@ -1,5 +1,7 @@
 package com.example.todoc.addtask;
 
+import java.util.Objects;
+
 public class AddTaskViewState {
 
     private final String taskDescription;
@@ -33,7 +35,29 @@ public class AddTaskViewState {
         return isButtonEnable;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AddTaskViewState that = (AddTaskViewState) o;
+        return isButtonEnable == that.isButtonEnable &&
+                Objects.equals(taskDescription, that.taskDescription) &&
+                Objects.equals(taskError, that.taskError) &&
+                Objects.equals(projectError, that.projectError);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(taskDescription, taskError, projectError, isButtonEnable);
+    }
 
-
+    @Override
+    public String toString() {
+        return "AddTaskViewState{" +
+                "taskDescription='" + taskDescription + '\'' +
+                ", taskError='" + taskError + '\'' +
+                ", projectError='" + projectError + '\'' +
+                ", isButtonEnable=" + isButtonEnable +
+                '}';
+    }
 }

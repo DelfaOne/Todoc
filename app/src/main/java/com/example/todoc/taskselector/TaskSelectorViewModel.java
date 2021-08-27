@@ -34,18 +34,8 @@ public class TaskSelectorViewModel extends ViewModel {
         LiveData<List<Long>> selectedProjectLiveData = selectedProjectsIdRepository.getIdProjectListLiveData();
 
         taskSelectorLiveData = new MediatorLiveData<>();
-        taskSelectorLiveData.addSource(projectEntitiesLiveData, new Observer<List<ProjectEntity>>() {
-            @Override
-            public void onChanged(List<ProjectEntity> projectEntities) {
-                combine(projectEntities, selectedProjectLiveData.getValue());
-            }
-        });
-        taskSelectorLiveData.addSource(selectedProjectLiveData, new Observer<List<Long>>() {
-            @Override
-            public void onChanged(List<Long> projectIds) {
-                combine(projectEntitiesLiveData.getValue(), projectIds);
-            }
-        });
+        taskSelectorLiveData.addSource(projectEntitiesLiveData, projectEntities -> combine(projectEntities, selectedProjectLiveData.getValue()));
+        taskSelectorLiveData.addSource(selectedProjectLiveData, projectIds -> combine(projectEntitiesLiveData.getValue(), projectIds));
 
 
     }

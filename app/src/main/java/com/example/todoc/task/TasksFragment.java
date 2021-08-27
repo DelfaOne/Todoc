@@ -69,7 +69,7 @@ public class TasksFragment extends Fragment {
     }
 
     private void onDateFilterSelected() {
-
+        vm.onDateSortingButtonSelected();
     }
 
     private void setupView() {

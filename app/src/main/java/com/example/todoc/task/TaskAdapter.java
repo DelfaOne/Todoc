@@ -25,7 +25,6 @@ public class TaskAdapter extends ListAdapter<TaskViewStateItem, TaskAdapter.View
             @Override
             public boolean areContentsTheSame(@NonNull TaskViewStateItem oldItem, @NonNull TaskViewStateItem newItem) {
                 return oldItem.getTaskName().equalsIgnoreCase(newItem.getProjectName());
-                //TODO
             }
         });
 
