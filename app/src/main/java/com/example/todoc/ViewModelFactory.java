@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.todoc.addtask.AddTaskViewModel;
 import com.example.todoc.data.database.AppDatabase;
+import com.example.todoc.data.database.DatabaseInitializer;
 import com.example.todoc.repository.SelectedProjectsIdRepository;
 import com.example.todoc.repository.TaskRepository;
 import com.example.todoc.task.TasksViewModel;
@@ -36,7 +37,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             synchronized (ViewModelFactory.class) {
                 if (factory == null) {
                     Executor executor = Executors.newFixedThreadPool(4);
-                    AppDatabase appDatabase = AppDatabase.getInstance(MainApplication.getApplication(), executor);
+                    AppDatabase appDatabase = AppDatabase.getInstance(MainApplication.getApplication(), executor, new DatabaseInitializer());
                     factory = new ViewModelFactory(executor, new TaskRepository(appDatabase.getTaskDao(), appDatabase.getProjectDao()), new SelectedProjectsIdRepository(), Clock.systemDefaultZone());
                 }
             }

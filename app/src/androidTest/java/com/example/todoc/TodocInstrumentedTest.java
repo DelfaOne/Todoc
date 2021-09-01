@@ -7,24 +7,23 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static com.example.todoc.utils.RecyclerViewItemCountAssertion.withItemCount;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.Matchers.allOf;
 
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.RootMatchers;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.example.utils.DeleteViewAction;
+import com.example.todoc.utils.DeleteViewAction;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static com.example.utils.RecyclerViewItemCountAssertion.withItemCount;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.Matchers.allOf;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -34,10 +33,10 @@ import static org.hamcrest.Matchers.allOf;
 @RunWith(AndroidJUnit4.class)
 public class TodocInstrumentedTest {
 
-    private static int INITIAL_TASKS = 0;
+    private static int INITIAL_TASKS = 5;
 
     @Rule
-    public ActivityScenarioRule activityScenarioRule = new ActivityScenarioRule<>(MainActivity.class);
+    public ActivityScenarioRule<MainActivity> activityScenarioRule = new ActivityScenarioRule<>(MainActivity.class);
 
     @Test
     public void onAddMeetingButtonClickedVerifyAddMeetingFragmentIsLaunched() {
@@ -51,7 +50,7 @@ public class TodocInstrumentedTest {
     }
 
     @Test
-    public void shouldCorrectlyAddNewTask() throws InterruptedException {
+    public void shouldCorrectlyAddNewTask() {
         //WHEN
         onView(withId(R.id.fab_add_task))
                 .perform(click());
@@ -105,24 +104,23 @@ public class TodocInstrumentedTest {
 
     @Test
     public void tasksListFilterByTaskShouldDisplayCorrectTasks() throws InterruptedException {
+
         //WHEN
         onView(withId(R.id.filterButton))
-                .perform(click());
+            .perform(click());
         onView(withText("Filtrer par nom"))
-                .perform(click());
+            .perform(click());
         onView(withText("Projet Circus"))
-                .perform(click()).check(matches(ViewMatchers.isChecked()))
-                .perform(pressBack());
-        Thread.sleep(5000);
+            .perform(click());
+
+        // TODO FADEL il faut préciser un peu plus le "onView"
+//        onView(allOf(withText("Projet Circus"), isRoot()))
+//            .check(matches(ViewMatchers.isChecked()));
+
+        onView(isRoot()).perform(pressBack());
 
         //THEN
         onView(allOf(withId(R.id.task_recycler_view), isDisplayed()))
-                .check(withItemCount(1));
+                .check(withItemCount(2));
     }
-
-
-
-
-
-
 }
