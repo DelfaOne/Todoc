@@ -3,8 +3,6 @@ package com.example.todoc.repository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.todoc.databinding.ListItemBinding;
-
 import java.util.ArrayList;
 import java.util.List;
 

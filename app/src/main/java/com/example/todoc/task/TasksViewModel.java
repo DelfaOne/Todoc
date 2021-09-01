@@ -23,7 +23,6 @@ import java.util.concurrent.Executor;
 public class TasksViewModel extends ViewModel {
 
     private final TaskRepository taskRepository;
-    private final SelectedProjectsIdRepository selectedProjectsIdRepository;
     private final Executor executorService;
 
     private final MediatorLiveData<TaskViewState> _taskViewStateLiveData = new MediatorLiveData<>();
@@ -32,7 +31,6 @@ public class TasksViewModel extends ViewModel {
 
     public TasksViewModel(TaskRepository taskRepository, SelectedProjectsIdRepository selectedProjectsIdRepository, Executor executorService) {
         this.taskRepository = taskRepository;
-        this.selectedProjectsIdRepository = selectedProjectsIdRepository;
         this.executorService = executorService;
 
         LiveData<List<TasksEntity>> taskLiveData = taskRepository.getAllTasks();
@@ -60,13 +58,13 @@ public class TasksViewModel extends ViewModel {
 
         if (isSortingStateAscendant != null) {
             if (isSortingStateAscendant) {
-                Collections.sort(copiedTaskEntities, (o1, o2) -> o2.getTaskCreatedAt().compareTo(o2.getTaskCreatedAt()));
+                Collections.sort(copiedTaskEntities, Comparator.comparing(TasksEntity::getTaskCreatedAt));
             } else {
-                Collections.sort(copiedTaskEntities, (o1, o2) -> o1.getTaskCreatedAt().compareTo(o2.getTaskCreatedAt()));
+                Collections.sort(copiedTaskEntities, (o1, o2) -> o2.getTaskCreatedAt().compareTo(o1.getTaskCreatedAt()));
             }
         }
 
-        for (TasksEntity tasksEntity : tasksEntities) {
+        for (TasksEntity tasksEntity : copiedTaskEntities) {
             for (ProjectEntity projectEntity : projectEntities) {
                 if (tasksEntity.getProjectId() == projectEntity.getId()) {
                     if (selectedProjects.isEmpty()) {
