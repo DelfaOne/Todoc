@@ -112,11 +112,6 @@ public class TodocInstrumentedTest {
             .perform(click());
         onView(withText("Projet Circus"))
             .perform(click());
-
-        // TODO FADEL il faut préciser un peu plus le "onView"
-//        onView(allOf(withText("Projet Circus"), isRoot()))
-//            .check(matches(ViewMatchers.isChecked()));
-
         onView(isRoot()).perform(pressBack());
 
         //THEN
