@@ -16,4 +16,14 @@
     <string name="task_name_hint">Nom de la tâche</string>
 
     <string name="empty_task_name">Le nom de la tâche doit être renseigné</string>
+    <string name="add_btn_txt">AJOUTER</string>
+    <string name="project_txt_field_hint">Projet</string>
+
+    <!--Add task error messages-->
+    <string name="taskError">Please add a project name</string>
+    <string name="projectError">Please add a project name</string>
+
+    <!--Menu text-->
+    <string name="filterByName">Filtrer par nom</string>
+    <string name="filterByDate">Filtrer par date</string>
 </resources>
